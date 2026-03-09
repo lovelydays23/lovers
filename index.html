@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bizim Şarkımız ❤️</title>
+
+<style>
+body{
+margin:0;
+background:black;
+color:white;
+font-family:Arial;
+text-align:center;
+overflow:hidden;
+}
+
+.container{
+position:relative;
+top:40vh;
+}
+
+button{
+padding:15px 35px;
+font-size:20px;
+border:none;
+border-radius:30px;
+background:#ff2e63;
+color:white;
+}
+
+.heart{
+position:absolute;
+color:#ff2e63;
+animation:fall 5s linear infinite;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10vh);}
+100%{transform:translateY(110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Bu Şarkı Senin İçin ❤️</h1>
+<p>Butona bas...</p>
+<button onclick="cal()">Şarkıyı Çal</button>
+</div>
+
+<audio id="muzik">
+<source src="sarki.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function cal(){
+document.getElementById("muzik").play();
+}
+
+for(let i=0;i<30;i++){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+20)+"px";
+heart.style.animationDuration=(Math.random()*3+3)+"s";
+document.body.appendChild(heart);
+}
+</script>
+
+</body>
+</html>
