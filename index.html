@@ -21,21 +21,37 @@ background-repeat:no-repeat;
 height:100vh;
 }
 
+/* ARKA PLAN KARARTMA */
+
 body::before{
 content:"";
-position:absolute;
+position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
 background:rgba(0,0,0,0.35);
-z-index:0;
+z-index:1;
 }
+
+/* GÜL KATMANI */
+
+#petal-layer{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:2;
+}
+
+/* YAZI */
 
 .container{
 position:relative;
 top:45vh;
-z-index:2;
+z-index:3;
 }
 
 h1{
@@ -50,6 +66,8 @@ text-shadow:
 0 0 20px #ff4d6d,
 0 0 40px #ff4d6d;
 }
+
+/* BUTON */
 
 button{
 padding:15px 40px;
@@ -84,7 +102,7 @@ font-size:18px;
 
 }
 
-/* GÜL YAPRAĞI */
+/* YAPRAK */
 
 .petal{
 position:absolute;
@@ -94,34 +112,24 @@ height:30px;
 background-image:url("petal.png");
 background-size:contain;
 background-repeat:no-repeat;
-z-index:3;
-pointer-events:none;
 animation:fall linear forwards;
 }
 
-/* GERÇEKÇİ DÜŞÜŞ */
+/* GERÇEKÇİ DÜŞME */
 
 @keyframes fall{
 
 0%{
-transform:translateY(-100px) translateX(0px) rotate(0deg);
+transform:translateY(-100px) translateX(0) rotate(0deg);
 opacity:1;
 }
 
-25%{
-transform:translateY(30vh) translateX(40px) rotate(90deg);
-}
-
 50%{
-transform:translateY(55vh) translateX(-40px) rotate(180deg);
-}
-
-75%{
-transform:translateY(80vh) translateX(30px) rotate(270deg);
+transform:translateY(60vh) translateX(40px) rotate(180deg);
 }
 
 100%{
-transform:translateY(110vh) translateX(-30px) rotate(360deg);
+transform:translateY(110vh) translateX(-40px) rotate(360deg);
 opacity:0;
 }
 
@@ -131,6 +139,8 @@ opacity:0;
 </head>
 
 <body>
+
+<div id="petal-layer"></div>
 
 <div class="container">
 <h1 id="baslik">Bizim Şarkımız ❤️</h1>
@@ -150,7 +160,9 @@ muzik.play();
 
 document.getElementById("baslik").classList.add("parla");
 
-/* GERÇEKÇİ GÜL YAĞMURU */
+let layer=document.getElementById("petal-layer");
+
+/* GÜL YAĞMURU */
 
 for(let i=0;i<70;i++){
 
@@ -160,21 +172,13 @@ petal.className="petal";
 
 petal.style.left=Math.random()*100+"vw";
 
-/* farklı boyut */
-
 let size=Math.random()*20+20;
 petal.style.width=size+"px";
 petal.style.height=size+"px";
 
-/* farklı hız */
-
 petal.style.animationDuration=(Math.random()*4+5)+"s";
 
-/* farklı dönüş */
-
-petal.style.transform="rotate("+Math.random()*360+"deg)";
-
-document.body.appendChild(petal);
+layer.appendChild(petal);
 
 setTimeout(()=>{
 petal.remove();
