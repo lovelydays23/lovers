@@ -51,7 +51,7 @@ padding:15px 40px;
 font-size:22px;
 border:none;
 border-radius:40px;
-background:#b3002d; /* koyu kırmızı */
+background:#b3002d;
 color:white;
 cursor:pointer;
 transition:0.3s;
@@ -59,26 +59,6 @@ transition:0.3s;
 
 button:hover{
 transform:scale(1.08);
-}
-
-/* ÇİÇEK ANİMASYONU */
-
-.flower{
-position:absolute;
-top:-10vh;
-color:white;
-font-size:25px;
-animation:fall linear infinite;
-z-index:1;
-}
-
-@keyframes fall{
-0%{
-transform:translateY(-10vh) rotate(0deg);
-}
-100%{
-transform:translateY(110vh) rotate(360deg);
-}
 }
 
 </style>
@@ -99,26 +79,6 @@ transform:translateY(110vh) rotate(360deg);
 
 function cal(){
 document.getElementById("muzik").play();
-}
-
-/* çiçek yağmuru */
-
-for(let i=0;i<40;i++){
-
-let flower=document.createElement("div");
-
-flower.className="flower";
-
-flower.innerHTML="❀";
-
-flower.style.left=Math.random()*100+"vw";
-
-flower.style.animationDuration=(Math.random()*4+4)+"s";
-
-flower.style.fontSize=(Math.random()*15+20)+"px";
-
-document.body.appendChild(flower);
-
 }
 
 </script>
