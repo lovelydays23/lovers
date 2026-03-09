@@ -34,7 +34,7 @@ z-index:0;
 
 .container{
 position:relative;
-top:40vh;
+top:42vh;
 z-index:2;
 padding:20px;
 }
@@ -67,15 +67,21 @@ button:hover{
 transform:scale(1.08);
 }
 
+/* TELEFON GÖRÜNÜMÜ */
+
 @media(max-width:600px){
 
+.container{
+top:48vh;
+}
+
 h1{
-font-size:30px;
+font-size:28px;
 }
 
 button{
 font-size:18px;
-padding:12px 30px;
+padding:14px 28px;
 }
 
 }
@@ -95,15 +101,21 @@ z-index:3;
 pointer-events:none;
 }
 
+/* GERÇEKÇİ DÜŞME */
+
 @keyframes fall{
 
 0%{
-transform:translateY(-50px) rotate(0deg);
+transform:translateY(-50px) translateX(0) rotate(0deg);
 opacity:1;
 }
 
+50%{
+transform:translateY(50vh) translateX(30px) rotate(180deg);
+}
+
 100%{
-transform:translateY(110vh) rotate(360deg);
+transform:translateY(110vh) translateX(-30px) rotate(360deg);
 opacity:0;
 }
 
@@ -132,9 +144,9 @@ muzik.play();
 
 document.getElementById("baslik").classList.add("parla");
 
-/* GÜL YAPRAĞI YAĞMURU */
+/* GÜL YAĞMURU */
 
-for(let i=0;i<50;i++){
+for(let i=0;i<60;i++){
 
 let petal=document.createElement("div");
 
@@ -142,13 +154,15 @@ petal.className="petal";
 
 petal.style.left=Math.random()*100+"vw";
 
-petal.style.animationDuration=(Math.random()*3+4)+"s";
+petal.style.animationDuration=(Math.random()*4+4)+"s";
+
+petal.style.transform="rotate("+Math.random()*360+"deg)";
 
 document.body.appendChild(petal);
 
 setTimeout(()=>{
 petal.remove();
-},7000);
+},8000);
 
 }
 
