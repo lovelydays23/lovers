@@ -14,7 +14,6 @@ text-align:center;
 overflow:hidden;
 color:white;
 
-/* ARKA PLAN FOTOĞRAF */
 background-image:url("foto.jpg");
 background-size:cover;
 background-position:center;
@@ -22,7 +21,7 @@ background-repeat:no-repeat;
 height:100vh;
 }
 
-/* karartma efekti */
+/* karartma */
 body::before{
 content:"";
 position:absolute;
@@ -38,14 +37,28 @@ z-index:0;
 position:relative;
 top:40vh;
 z-index:2;
+padding:20px;
 }
+
+/* BAŞLIK */
 
 h1{
 font-size:40px;
-margin-bottom:20px;
+margin-bottom:25px;
+transition:0.5s;
+}
+
+/* ŞARKI BAŞLAYINCA PARLAMA */
+
+.parla{
+text-shadow:
+0 0 10px #fff,
+0 0 20px #ff4d6d,
+0 0 40px #ff4d6d;
 }
 
 /* BUTON */
+
 button{
 padding:15px 40px;
 font-size:22px;
@@ -61,13 +74,52 @@ button:hover{
 transform:scale(1.08);
 }
 
+/* TELEFON UYUM */
+
+@media(max-width:600px){
+
+h1{
+font-size:30px;
+}
+
+button{
+font-size:18px;
+padding:12px 30px;
+}
+
+}
+
+/* KALP ANİMASYONU */
+
+.heart{
+position:absolute;
+bottom:-20px;
+color:#ff4d6d;
+font-size:24px;
+animation:floatUp linear forwards;
+}
+
+@keyframes floatUp{
+
+0%{
+transform:translateY(0) scale(1);
+opacity:1;
+}
+
+100%{
+transform:translateY(-100vh) scale(1.8);
+opacity:0;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
-<h1>Bizim Şarkımız ❤️</h1>
+<h1 id="baslik">Bizim Şarkımız ❤️</h1>
 <button onclick="cal()">Şarkıyı Çal</button>
 </div>
 
@@ -78,7 +130,36 @@ transform:scale(1.08);
 <script>
 
 function cal(){
-document.getElementById("muzik").play();
+
+let muzik=document.getElementById("muzik");
+muzik.play();
+
+/* yazı parlasın */
+
+document.getElementById("baslik").classList.add("parla");
+
+/* kalpler uçuşsun */
+
+for(let i=0;i<30;i++){
+
+let heart=document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.animationDuration=(Math.random()*3+3)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+}
+
 }
 
 </script>
