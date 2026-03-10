@@ -26,13 +26,9 @@ display:flex;
 align-items:center;
 justify-content:center;
 flex-direction:column;
-transition:opacity 0.8s ease;
 }
 
-/* film şeridi */
-
-.filmTop,
-.filmBottom{
+.filmTop,.filmBottom{
 position:absolute;
 width:100%;
 height:40px;
@@ -47,8 +43,6 @@ white 40px
 
 .filmTop{top:0;}
 .filmBottom{bottom:0;}
-
-/* play buton */
 
 .playBtn{
 width:120px;
@@ -69,8 +63,6 @@ border-bottom:20px solid transparent;
 margin-left:5px;
 }
 
-/* geri sayım yazı */
-
 #countdownNumber{
 font-size:120px;
 color:white;
@@ -84,18 +76,11 @@ position:fixed;
 width:100%;
 height:100%;
 background:url("https://images.unsplash.com/photo-1520854221256-17451cc331bf") center/cover no-repeat;
-display:flex;
+display:none;
 flex-direction:column;
 align-items:center;
 justify-content:center;
 color:white;
-opacity:0;
-transition:opacity 0.8s ease;
-}
-
-#wedding h1{
-font-size:32px;
-margin-bottom:20px;
 }
 
 .musicBtn{
@@ -113,8 +98,6 @@ cursor:pointer;
 
 <body>
 
-<!-- geri sayım ekranı -->
-
 <div id="countdownScreen">
 
 <div class="filmTop"></div>
@@ -125,8 +108,6 @@ cursor:pointer;
 <div id="countdownNumber"></div>
 
 </div>
-
-<!-- düğün ekranı -->
 
 <div id="wedding">
 
@@ -141,58 +122,50 @@ cursor:pointer;
 
 <script>
 
-let number=3;
+let number=3
 
-const playBtn = document.getElementById("playBtn");
-const musicBtn = document.getElementById("musicBtn");
-const music = document.getElementById("music");
-const sound = document.getElementById("countSound");
+const playBtn=document.getElementById("playBtn")
+const musicBtn=document.getElementById("musicBtn")
 
-playBtn.addEventListener("click", startCountdown);
+const sound=document.getElementById("countSound")
+const music=document.getElementById("music")
 
-musicBtn.addEventListener("click", function(){
-music.currentTime = 0;
-music.play().catch(()=>{});
-});
+playBtn.onclick=function(){
 
-function startCountdown(){
+sound.currentTime=0
+sound.play()
 
-sound.currentTime=0;
-sound.play().catch(()=>{});
+document.getElementById("countdownNumber").innerText=number
+playBtn.style.display="none"
 
-playBtn.style.display="none";
+let interval=setInterval(function(){
 
-document.getElementById("countdownNumber").innerText=number;
-
-let interval=setInterval(()=>{
-
-number--;
+number--
 
 if(number>0){
 
-document.getElementById("countdownNumber").innerText=number;
+document.getElementById("countdownNumber").innerText=number
 
 }else{
 
-clearInterval(interval);
+clearInterval(interval)
 
-sound.pause();
-sound.currentTime=0;
+sound.pause()
+sound.currentTime=0
 
-document.getElementById("countdownScreen").style.opacity="0";
-
-setTimeout(()=>{
-
-document.getElementById("countdownScreen").style.display="none";
-
-let wedding=document.getElementById("wedding");
-wedding.style.opacity="1";
-
-},800);
+document.getElementById("countdownScreen").style.display="none"
+document.getElementById("wedding").style.display="flex"
 
 }
 
-},1000);
+},1000)
+
+}
+
+musicBtn.onclick=function(){
+
+music.currentTime=0
+music.play()
 
 }
 
