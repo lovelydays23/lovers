@@ -32,15 +32,40 @@ display:flex;
 align-items:center;
 justify-content:center;
 z-index:9999;
+animation:filmJitter 0.15s infinite;
+}
+
+/* film titreşimi */
+
+@keyframes filmJitter{
+0%{transform:translate(0,0)}
+25%{transform:translate(1px,-1px)}
+50%{transform:translate(-1px,1px)}
+75%{transform:translate(1px,1px)}
+100%{transform:translate(0,0)}
+}
+
+/* film grain */
+
+#countdown::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background-image:url("https://grainy-gradients.vercel.app/noise.svg");
+opacity:0.25;
+pointer-events:none;
 }
 
 /* film şeridi */
 
 .film-frame{
 position:relative;
-padding:60px 40px;
+padding:70px 60px;
 background:#c6a97a;
 }
+
+/* film delikleri */
 
 .film-frame::before,
 .film-frame::after{
@@ -48,47 +73,66 @@ content:"";
 position:absolute;
 left:0;
 width:100%;
-height:25px;
+height:28px;
 background:
 repeating-linear-gradient(
 90deg,
 black 0px,
-black 20px,
-white 20px,
-white 35px
+black 22px,
+white 22px,
+white 38px
 );
 }
 
-.film-frame::before{top:-25px;}
-.film-frame::after{bottom:-25px;}
+.film-frame::before{top:-28px;}
+.film-frame::after{bottom:-28px;}
 
 /* hedef çizgileri */
 
 .crosshair{
 position:absolute;
-width:300px;
-height:300px;
+width:420px;
+height:420px;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
 }
 
 .crosshair::before{
 content:"";
 position:absolute;
+left:50%;
+top:0;
 width:3px;
 height:100%;
-background:black;
-left:50%;
+background:repeating-linear-gradient(
+to bottom,
+black 0px,
+black 14px,
+transparent 14px,
+transparent 26px
+);
+transform:translateX(-50%);
 }
 
 .crosshair::after{
 content:"";
 position:absolute;
-height:3px;
-width:100%;
-background:black;
 top:50%;
+left:0;
+width:100%;
+height:3px;
+background:repeating-linear-gradient(
+to right,
+black 0px,
+black 14px,
+transparent 14px,
+transparent 26px
+);
+transform:translateY(-50%);
 }
 
-/* geri sayım çemberi */
+/* çember */
 
 .circle{
 position:relative;
@@ -102,6 +146,7 @@ justify-content:center;
 font-size:140px;
 font-weight:bold;
 color:black;
+z-index:2;
 }
 
 /* ikinci halka */
@@ -135,7 +180,7 @@ animation:spin 1s linear infinite;
 100%{transform:translate(-50%,-100%) rotate(360deg);}
 }
 
-/* ana sayfa */
+/* ana ekran */
 
 .container{
 position:relative;
@@ -176,9 +221,7 @@ transform:scale(1.05);
 
 @media (max-width:600px){
 
-h1{
-font-size:32px;
-}
+h1{font-size:32px}
 
 button{
 font-size:18px;
@@ -198,16 +241,17 @@ font-size:100px;
 
 <body>
 
-<!-- geri sayım -->
-
 <div id="countdown">
+
 <div class="film-frame">
+
 <div class="crosshair"></div>
+
 <div class="circle" id="num">3</div>
-</div>
+
 </div>
 
-<!-- ana ekran -->
+</div>
 
 <div class="container">
 <h1>Bizim Şarkımız ❤️</h1>
