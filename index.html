@@ -19,8 +19,6 @@ background-position:center;
 height:100vh;
 }
 
-/* geri sayım ekranı */
-
 #countdown{
 position:fixed;
 top:0;
@@ -34,8 +32,6 @@ justify-content:center;
 z-index:9999;
 }
 
-/* vignette */
-
 #countdown::before{
 content:"";
 position:absolute;
@@ -45,39 +41,13 @@ background:radial-gradient(circle,
 rgba(255,255,255,0.1) 0%,
 rgba(0,0,0,0.3) 60%,
 rgba(0,0,0,0.65) 100%);
-pointer-events:none;
 }
-
-/* film frame */
 
 .film-frame{
 position:relative;
 padding:70px 60px;
 background:#c6a97a;
 }
-
-/* film delikleri */
-
-.film-frame::before,
-.film-frame::after{
-content:"";
-position:absolute;
-left:0;
-width:100%;
-height:28px;
-background:repeating-linear-gradient(
-90deg,
-black 0px,
-black 22px,
-white 22px,
-white 38px
-);
-}
-
-.film-frame::before{top:-28px;}
-.film-frame::after{bottom:-28px;}
-
-/* crosshair */
 
 .crosshair{
 position:absolute;
@@ -122,8 +92,6 @@ transparent 26px
 transform:translateY(-50%);
 }
 
-/* çember */
-
 .circle{
 position:relative;
 width:280px;
@@ -136,10 +104,7 @@ justify-content:center;
 font-size:140px;
 font-weight:bold;
 color:black;
-overflow:hidden;
 }
-
-/* ikinci halka */
 
 .circle::before{
 content:"";
@@ -150,7 +115,10 @@ border:5px solid #f5f5f5;
 border-radius:50%;
 }
 
-/* dönen üçgen film dilimi */
+.play{
+font-size:90px;
+cursor:pointer;
+}
 
 .slice{
 position:absolute;
@@ -160,6 +128,7 @@ clip-path:polygon(50% 50%, 100% 0, 100% 100%);
 background:rgba(0,0,0,0.15);
 animation:spin 1s linear infinite;
 transform-origin:center;
+display:none;
 }
 
 @keyframes spin{
@@ -167,15 +136,13 @@ transform-origin:center;
 100%{transform:rotate(360deg);}
 }
 
-/* ana ekran */
-
 .container{
 position:relative;
 top:36vh;
 z-index:2;
 opacity:0;
 animation:show 1.5s forwards;
-animation-delay:3.5s;
+animation-delay:4s;
 }
 
 @keyframes show{
@@ -205,9 +172,11 @@ cursor:pointer;
 
 <div class="circle">
 
-<div class="slice"></div>
+<div class="slice" id="slice"></div>
 
-<div id="num">3</div>
+<div id="num">
+<span class="play" onclick="startCountdown()">▶️</span>
+</div>
 
 </div>
 
@@ -230,15 +199,25 @@ cursor:pointer;
 
 <script>
 
-let n=3;
 let sound=document.getElementById("countSound");
+let slice=document.getElementById("slice");
+let n=3;
 
-let interval=setInterval(()=>{
+function startCountdown(){
+
+slice.style.display="block";
 
 sound.currentTime=0;
 sound.play().catch(()=>{});
 
+document.getElementById("num").innerHTML=n;
+
+let interval=setInterval(()=>{
+
 n--;
+
+sound.currentTime=0;
+sound.play().catch(()=>{});
 
 if(n>0){
 
@@ -247,11 +226,14 @@ document.getElementById("num").innerHTML=n;
 }else{
 
 clearInterval(interval);
+
 document.getElementById("countdown").style.display="none";
 
 }
 
 },1000);
+
+}
 
 function cal(){
 document.getElementById("muzik").play();
