@@ -66,6 +66,9 @@ margin-left:5px;
 font-size:120px;
 color:white;
 position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 }
 
 #wedding{
@@ -107,7 +110,7 @@ cursor:pointer;
 <div class="filmTop"></div>
 <div class="filmBottom"></div>
 
-<div class="playBtn" onclick="startCountdown()"></div>
+<div class="playBtn" id="playButton"></div>
 
 <div id="countdownNumber"></div>
 
@@ -117,25 +120,39 @@ cursor:pointer;
 
 <h1>Bizim Şarkımız ❤️</h1>
 
-<button class="musicBtn" onclick="document.getElementById('music').play()">Şarkıyı Çal</button>
+<button class="musicBtn" id="musicButton">Şarkıyı Çal</button>
 
 </div>
 
-<audio id="countSound" src="countdown321.mp3"></audio>
-<audio id="music" src="music.mp3"></audio>
+<audio id="countSound" preload="auto">
+<source src="countdown321.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="music" preload="auto">
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
 let number=3;
 
+const playBtn=document.getElementById("playButton");
+const musicBtn=document.getElementById("musicButton");
+const countSound=document.getElementById("countSound");
+const music=document.getElementById("music");
+
+playBtn.addEventListener("click", startCountdown);
+
+musicBtn.addEventListener("click", function(){
+music.play();
+});
+
 function startCountdown(){
 
-const sound=document.getElementById("countSound");
+playBtn.style.display="none";
 
-sound.currentTime=0;
-sound.play();
-
-document.querySelector(".playBtn").style.display="none";
+countSound.currentTime=0;
+countSound.play().catch(()=>{});
 
 document.getElementById("countdownNumber").innerText=number;
 
@@ -151,8 +168,8 @@ document.getElementById("countdownNumber").innerText=number;
 
 clearInterval(interval);
 
-sound.pause();
-sound.currentTime=0;
+countSound.pause();
+countSound.currentTime=0;
 
 document.getElementById("countdownScreen").style.opacity="0";
 
