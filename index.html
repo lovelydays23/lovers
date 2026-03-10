@@ -38,19 +38,19 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:black;
+background:#222;
 display:flex;
 align-items:center;
 justify-content:center;
 z-index:10;
-animation:flicker 0.12s infinite;
+animation:flicker 0.1s infinite;
 }
 
-/* projektör titreme efekti */
+/* film titremesi */
 
 @keyframes flicker{
 0%{opacity:1}
-50%{opacity:0.96}
+50%{opacity:0.97}
 100%{opacity:1}
 }
 
@@ -62,48 +62,88 @@ position:absolute;
 width:100%;
 height:100%;
 background-image:url("https://upload.wikimedia.org/wikipedia/commons/7/76/Film_grain.png");
-opacity:0.15;
+opacity:0.18;
 mix-blend-mode:overlay;
-animation:grain 0.3s steps(2) infinite;
 }
 
-@keyframes grain{
-0%{transform:translate(0,0)}
-25%{transform:translate(-5%,5%)}
-50%{transform:translate(5%,-5%)}
-75%{transform:translate(-3%,3%)}
-100%{transform:translate(0,0)}
+/* film şeridi */
+
+.film{
+position:relative;
+background:#444;
+padding:60px 40px;
+border-radius:6px;
 }
 
-/* film çizikleri */
+/* film delikleri */
 
-#countdown::before{
+.film::before,
+.film::after{
 content:"";
 position:absolute;
+left:0;
 width:100%;
-height:100%;
+height:20px;
 background:
-linear-gradient(transparent 96%, rgba(255,255,255,0.2) 100%),
-linear-gradient(90deg, transparent 98%, rgba(255,255,255,0.15) 100%);
-opacity:0.25;
+repeating-linear-gradient(
+90deg,
+black 0px,
+black 20px,
+white 20px,
+white 30px
+);
 }
 
-/* sinema dairesi */
+.film::before{top:-20px;}
+.film::after{bottom:-20px;}
+
+/* hedef çizgileri */
+
+.crosshair{
+position:absolute;
+width:220px;
+height:220px;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+
+.crosshair::before{
+content:"";
+position:absolute;
+width:2px;
+height:100%;
+background:white;
+left:50%;
+}
+
+.crosshair::after{
+content:"";
+position:absolute;
+height:2px;
+width:100%;
+background:white;
+top:50%;
+}
+
+/* büyük sinema diski */
 
 .circle{
 position:relative;
 width:220px;
 height:220px;
+background:#666;
 border:6px solid white;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:80px;
+font-size:90px;
 font-weight:bold;
+color:white;
 }
 
-/* dönen sinema çizgisi */
+/* dönen sayaç */
 
 .circle::after{
 content:"";
@@ -126,7 +166,7 @@ animation:spin 1s linear infinite;
 
 .container{
 position:relative;
-top:32vh;
+top:34vh;
 z-index:3;
 opacity:0;
 animation:showPage 1.5s ease forwards;
@@ -146,8 +186,6 @@ text-shadow:
 0 0 45px #ff2e63;
 }
 
-/* buton */
-
 button{
 padding:16px 45px;
 font-size:22px;
@@ -156,14 +194,7 @@ border-radius:50px;
 background:#b3002d;
 color:white;
 cursor:pointer;
-transition:0.3s;
 }
-
-button:hover{
-transform:scale(1.08);
-}
-
-/* telefon uyumu */
 
 @media(max-width:600px){
 
@@ -173,8 +204,9 @@ height:160px;
 font-size:60px;
 }
 
-.container{
-top:36vh;
+.crosshair{
+width:160px;
+height:160px;
 }
 
 h1{
@@ -183,15 +215,11 @@ font-size:30px;
 
 }
 
-</style></head><body><div id="countdown">
-<div class="circle" id="num">3</div>
-</div><div class="container"><h1>Bizim Şarkımız ❤️</h1><button onclick="cal()">Şarkıyı Çal</button>
+</style></head><body><div id="countdown"><div class="film"><div class="crosshair"></div><div class="circle" id="num">3</div></div></div><div class="container"><h1>Bizim Şarkımız ❤️</h1><button onclick="cal()">Şarkıyı Çal</button>
 
 </div><audio id="muzik">
 <source src="sarki.mp3" type="audio/mpeg">
 </audio><script>
-
-/* geri sayım */
 
 let sayi=3;
 
@@ -209,7 +237,6 @@ clearInterval(interval);
 
 let c=document.getElementById("countdown");
 
-c.style.transition="opacity 1s";
 c.style.opacity="0";
 
 setTimeout(()=>{
@@ -220,12 +247,9 @@ c.style.display="none";
 
 },1000);
 
-/* şarkı */
-
 function cal(){
 
-let muzik=document.getElementById("muzik");
-muzik.play();
+document.getElementById("muzik").play();
 
 }
 
