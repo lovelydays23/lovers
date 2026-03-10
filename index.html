@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Bizim Şarkımız ❤️</title>
 
 <style>
@@ -15,7 +14,7 @@ font-family:Arial;
 overflow:hidden;
 }
 
-/* COUNTDOWN EKRANI */
+/* COUNTDOWN */
 
 #countdownScreen{
 position:fixed;
@@ -27,8 +26,6 @@ align-items:center;
 justify-content:center;
 animation:flicker 0.15s infinite;
 }
-
-/* film şeritleri */
 
 .filmTop,.filmBottom{
 position:absolute;
@@ -46,8 +43,6 @@ white 40px
 .filmTop{top:0;}
 .filmBottom{bottom:0;}
 
-/* hedef çizgileri */
-
 .crossH{
 position:absolute;
 width:100%;
@@ -61,8 +56,6 @@ height:100%;
 width:3px;
 background:black;
 }
-
-/* halkalar */
 
 .circle1{
 position:absolute;
@@ -80,8 +73,6 @@ border:8px solid rgba(255,255,255,0.9);
 border-radius:50%;
 }
 
-/* dönen film dilimi */
-
 .wedge{
 position:absolute;
 width:420px;
@@ -92,7 +83,7 @@ rgba(0,0,0,0.35) 0deg,
 rgba(0,0,0,0.35) 70deg,
 transparent 70deg
 );
-animation:spin 1s linear infinite;
+animation:spin 0.9s linear infinite;
 opacity:0;
 }
 
@@ -101,8 +92,6 @@ from{transform:rotate(0deg);}
 to{transform:rotate(360deg);}
 }
 
-/* sayılar */
-
 #countdownNumber{
 font-size:240px;
 font-weight:900;
@@ -110,8 +99,6 @@ color:black;
 position:absolute;
 font-family:Impact,Arial Black,sans-serif;
 }
-
-/* play butonu */
 
 .playBtn{
 width:120px;
@@ -133,7 +120,7 @@ border-bottom:20px solid transparent;
 margin-left:5px;
 }
 
-/* film grain efekti */
+/* film grain */
 
 .grain{
 pointer-events:none;
@@ -154,7 +141,7 @@ animation:grainMove 0.1s infinite;
 100%{transform:translate(1px,-1px)}
 }
 
-/* projektör titreme */
+/* flicker */
 
 @keyframes flicker{
 0%{opacity:1}
@@ -162,7 +149,7 @@ animation:grainMove 0.1s infinite;
 100%{opacity:1}
 }
 
-/* siyah geçiş ekranı */
+/* siyah geçiş */
 
 #blackFade{
 position:fixed;
@@ -177,7 +164,7 @@ transition:opacity 1s;
 z-index:999;
 }
 
-/* düğün ekranı */
+/* wedding */
 
 #wedding{
 position:fixed;
@@ -252,8 +239,6 @@ function startCountdown(){
 
 document.querySelector(".playBtn").style.display="none";
 
-let number=3;
-
 const wedge=document.getElementById("wedge");
 const display=document.getElementById("countdownNumber");
 const sound=document.getElementById("countSound");
@@ -263,42 +248,38 @@ wedge.style.opacity="1";
 sound.currentTime=0;
 sound.play();
 
-display.innerText=number;
+/* 3 */
 
-let interval=setInterval(function(){
+display.innerText="3";
 
-number--;
+setTimeout(function(){
 
-if(number>0){
+display.innerText="2";
 
-display.innerText=number;
+setTimeout(function(){
 
-}else{
+display.innerText="1";
 
-clearInterval(interval);
+setTimeout(function(){
 
 sound.pause();
 
 let fade=document.getElementById("blackFade");
-
 fade.style.opacity="1";
 
 setTimeout(function(){
 
 document.getElementById("countdownScreen").style.display="none";
-
-setTimeout(function(){
-
 fade.style.opacity="0";
 document.getElementById("wedding").style.display="flex";
 
 },1000);
 
-},3000);
-
-}
+},800);
 
 },1000);
+
+},1200);
 
 }
 
