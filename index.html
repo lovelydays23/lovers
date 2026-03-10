@@ -34,7 +34,7 @@ justify-content:center;
 z-index:9999;
 }
 
-/* vignette zoom efekti */
+/* vignette */
 
 #countdown::before{
 content:"";
@@ -77,7 +77,7 @@ white 38px
 .film-frame::before{top:-28px;}
 .film-frame::after{bottom:-28px;}
 
-/* hedef çizgileri */
+/* crosshair */
 
 .crosshair{
 position:absolute;
@@ -138,8 +138,6 @@ font-weight:bold;
 color:black;
 }
 
-/* ikinci halka */
-
 .circle::before{
 content:"";
 position:absolute;
@@ -149,7 +147,7 @@ border:5px solid #f5f5f5;
 border-radius:50%;
 }
 
-/* dönen ince çubuk */
+/* dönen çubuk */
 
 .circle::after{
 content:"";
@@ -221,7 +219,7 @@ cursor:pointer;
 </audio>
 
 <audio id="countSound">
-<source src="count.mp3" type="audio/mpeg">
+<source src="countdown321.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -229,12 +227,14 @@ cursor:pointer;
 let n=3;
 let sound=document.getElementById("countSound");
 
+sound.play();
+
 let interval=setInterval(()=>{
+
+n--;
 
 sound.currentTime=0;
 sound.play();
-
-n--;
 
 if(n>0){
 
@@ -243,7 +243,6 @@ document.getElementById("num").innerHTML=n;
 }else{
 
 clearInterval(interval);
-
 document.getElementById("countdown").style.display="none";
 
 }
