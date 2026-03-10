@@ -120,7 +120,7 @@ cursor:pointer;
 <div class="filmTop"></div>
 <div class="filmBottom"></div>
 
-<div class="playBtn" onclick="startCountdown()"></div>
+<div class="playBtn" id="playBtn"></div>
 
 <div id="countdownNumber"></div>
 
@@ -132,7 +132,7 @@ cursor:pointer;
 
 <h1>Bizim Şarkımız ❤️</h1>
 
-<button class="musicBtn" onclick="music.play()">Şarkıyı Çal</button>
+<button class="musicBtn" id="musicBtn">Şarkıyı Çal</button>
 
 </div>
 
@@ -143,14 +143,24 @@ cursor:pointer;
 
 let number=3;
 
-function startCountdown(){
-
+const playBtn=document.getElementById("playBtn");
+const musicBtn=document.getElementById("musicBtn");
+const music=document.getElementById("music");
 const sound=document.getElementById("countSound");
+
+playBtn.addEventListener("click",startCountdown);
+
+musicBtn.addEventListener("click",function(){
+music.currentTime=0;
+music.play();
+});
+
+function startCountdown(){
 
 sound.currentTime=0;
 sound.play().catch(()=>{});
 
-document.querySelector(".playBtn").style.display="none";
+playBtn.style.display="none";
 
 document.getElementById("countdownNumber").innerText=number;
 
