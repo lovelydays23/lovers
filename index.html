@@ -1,159 +1,58 @@
-<!DOCTYPE html><html lang="tr">
+<!DOCTYPE html>
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bizim Şarkımız</title><style>
+
+<title>Bizim Şarkımız ❤️</title>
+
+<style>
 
 body{
 margin:0;
 font-family:Arial;
-text-align:center;
+background:black;
 overflow:hidden;
-color:white;
-background-image:url("foto.jpg");
-background-size:cover;
-background-position:center;
-height:100vh;
 }
 
-#countdown{
+/* geri sayım ekranı */
+
+#countdownScreen{
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
-background:#c6a97a;
+background:#c5a06a;
 display:flex;
 align-items:center;
 justify-content:center;
-z-index:9999;
+flex-direction:column;
+transition:opacity 0.8s ease;
 }
 
-#countdown::before{
-content:"";
+/* film şeridi */
+
+.filmTop,
+.filmBottom{
 position:absolute;
 width:100%;
-height:100%;
-background:radial-gradient(circle,
-rgba(255,255,255,0.1) 0%,
-rgba(0,0,0,0.3) 60%,
-rgba(0,0,0,0.65) 100%);
-pointer-events:none;
-}
-
-.film-frame{
-position:relative;
-padding:70px 60px;
-background:#c6a97a;
-}
-
-.film-frame::before,
-.film-frame::after{
-content:"";
-position:absolute;
-left:0;
-width:100%;
-height:28px;
+height:40px;
 background:repeating-linear-gradient(
 90deg,
 black 0px,
-black 22px,
-white 22px,
-white 38px
+black 20px,
+white 20px,
+white 40px
 );
 }
 
-.film-frame::before{top:-28px;}
-.film-frame::after{bottom:-28px;}
+.filmTop{top:0;}
+.filmBottom{bottom:0;}
 
-.crosshair{
-position:absolute;
-width:420px;
-height:420px;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%);
-pointer-events:none;
-}
+/* play buton */
 
-.crosshair::before{
-content:"";
-position:absolute;
-left:50%;
-top:0;
-width:3px;
-height:100%;
-background:repeating-linear-gradient(
-to bottom,
-black 0px,
-black 14px,
-transparent 14px,
-transparent 26px
-);
-transform:translateX(-50%);
-}
-
-.crosshair::after{
-content:"";
-position:absolute;
-top:50%;
-left:0;
-width:100%;
-height:3px;
-background:repeating-linear-gradient(
-to right,
-black 0px,
-black 14px,
-transparent 14px,
-transparent 26px
-);
-transform:translateY(-50%);
-}
-
-.circle{
-position:relative;
-width:280px;
-height:280px;
-border:8px solid #f5f5f5;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:140px;
-font-weight:bold;
-color:black;
-overflow:hidden;
-}
-
-.circle::before{
-content:"";
-position:absolute;
-width:240px;
-height:240px;
-border:5px solid #f5f5f5;
-border-radius:50%;
-}
-
-.slice{
-position:absolute;
-width:100%;
-height:100%;
-clip-path:polygon(50% 50%, 100% 0, 100% 100%);
-background:rgba(0,0,0,0.15);
-animation:spin 1s linear infinite;
-transform-origin:center;
-display:none;
-pointer-events:none;
-}
-
-@keyframes spin{
-0%{transform:rotate(0deg);}
-100%{transform:rotate(360deg);}
-}
-
-.play{
-width:110px;
-height:110px;
+.playBtn{
+width:120px;
+height:120px;
 background:black;
 border-radius:50%;
 display:flex;
@@ -162,82 +61,124 @@ justify-content:center;
 cursor:pointer;
 }
 
-.play span{
+.playBtn:after{
+content:"";
+border-left:35px solid white;
+border-top:20px solid transparent;
+border-bottom:20px solid transparent;
+margin-left:5px;
+}
+
+/* geri sayım yazı */
+
+#countdownNumber{
+font-size:120px;
 color:white;
-font-size:60px;
-margin-left:6px;
+position:absolute;
 }
 
-#num{
-position:relative;
-z-index:10;
-}
+/* düğün ekranı */
 
-.container{
-position:relative;
-top:36vh;
-z-index:2;
+#wedding{
+position:fixed;
+width:100%;
+height:100%;
+background:url("https://images.unsplash.com/photo-1520854221256-17451cc331bf") center/cover no-repeat;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+color:white;
 opacity:0;
-animation:show 1.5s forwards;
-animation-delay:4s;
+transition:opacity 0.8s ease;
 }
 
-@keyframes show{
-to{opacity:1;}
+#wedding h1{
+font-size:32px;
+margin-bottom:20px;
 }
 
-button{
-padding:15px 40px;
-font-size:22px;
+.musicBtn{
+background:#e91e63;
 border:none;
-border-radius:40px;
-background:#b3002d;
+padding:14px 30px;
+font-size:18px;
+border-radius:30px;
 color:white;
 cursor:pointer;
 }
 
-</style></head><body><div id="countdown"><div class="film-frame"><div class="crosshair"></div><div class="circle"><div class="slice" id="slice"></div><div id="num"><div class="play" onclick="startCountdown()">
-<span>▶</span>
-</div></div></div></div></div><div class="container">
-<h1>Bizim Şarkımız ❤️</h1>
-<button onclick="cal()">Şarkıyı Çal</button>
-</div><audio id="muzik">
-<source src="sarki.mp3" type="audio/mpeg">
-</audio><audio id="countSound">
-<source src="countdown321.mp3" type="audio/mpeg">
-</audio><script>
+</style>
+</head>
 
-let n=3;
-let sound=document.getElementById("countSound");
-let slice=document.getElementById("slice");
+<body>
+
+<!-- geri sayım ekranı -->
+
+<div id="countdownScreen">
+
+<div class="filmTop"></div>
+<div class="filmBottom"></div>
+
+<div class="playBtn" onclick="startCountdown()"></div>
+
+<div id="countdownNumber"></div>
+
+</div>
+
+<!-- düğün ekranı -->
+
+<div id="wedding">
+
+<h1>Bizim Şarkımız ❤️</h1>
+
+<button class="musicBtn" onclick="music.play()">Şarkıyı Çal</button>
+
+</div>
+
+<audio id="countSound" src="countdown321.mp3"></audio>
+<audio id="music" src="music.mp3"></audio>
+
+<script>
+
+let number=3;
 
 function startCountdown(){
 
-slice.style.display="block";
+const sound=document.getElementById("countSound");
 
 sound.currentTime=0;
 sound.play().catch(()=>{});
 
-document.getElementById("num").innerHTML=n;
+document.querySelector(".playBtn").style.display="none";
+
+document.getElementById("countdownNumber").innerText=number;
 
 let interval=setInterval(()=>{
 
-n--;
+number--;
 
-if(n>0){
+if(number>0){
 
-document.getElementById("num").innerHTML=n;
+document.getElementById("countdownNumber").innerText=number;
 
 }else{
 
 clearInterval(interval);
 
-/* SESİ DURDUR */
-
 sound.pause();
 sound.currentTime=0;
 
-document.getElementById("countdown").style.display="none";
+document.getElementById("countdownScreen").style.opacity="0";
+
+setTimeout(()=>{
+
+document.getElementById("countdownScreen").style.display="none";
+
+let wedding=document.getElementById("wedding");
+wedding.style.opacity="1";
+
+},800);
 
 }
 
@@ -245,9 +186,7 @@ document.getElementById("countdown").style.display="none";
 
 }
 
-function cal(){
-document.getElementById("muzik").play();
-}
+</script>
 
-</script></body>
+</body>
 </html>
