@@ -132,7 +132,7 @@ cursor:pointer;
 
 <h1>Bizim Şarkımız ❤️</h1>
 
-<button class="musicBtn" onclick="music.play()">Şarkıyı Çal</button>
+<button class="musicBtn" onclick="document.getElementById('music').play()">Şarkıyı Çal</button>
 
 </div>
 
@@ -141,7 +141,8 @@ cursor:pointer;
 
 <script>
 
-let number=3;
+let number = 3;
+const music = document.getElementById("music");
 
 function startCountdown(){
 
