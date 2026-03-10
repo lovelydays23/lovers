@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="tr">
+<!DOCTYPE html><html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bizim Şarkımız</title>
-
-<style>
+<title>Bizim Şarkımız</title><style>
 
 body{
 margin:0;
@@ -20,7 +17,7 @@ background-repeat:no-repeat;
 height:100vh;
 }
 
-/* karartma */
+/* arka plan karartma */
 
 body::before{
 content:"";
@@ -46,10 +43,52 @@ display:flex;
 align-items:center;
 justify-content:center;
 z-index:10;
-transition:opacity 1s;
+animation:flicker 0.12s infinite;
 }
 
-/* daire */
+/* projektör titreme efekti */
+
+@keyframes flicker{
+0%{opacity:1}
+50%{opacity:0.96}
+100%{opacity:1}
+}
+
+/* film grain */
+
+#countdown::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background-image:url("https://upload.wikimedia.org/wikipedia/commons/7/76/Film_grain.png");
+opacity:0.15;
+mix-blend-mode:overlay;
+animation:grain 0.3s steps(2) infinite;
+}
+
+@keyframes grain{
+0%{transform:translate(0,0)}
+25%{transform:translate(-5%,5%)}
+50%{transform:translate(5%,-5%)}
+75%{transform:translate(-3%,3%)}
+100%{transform:translate(0,0)}
+}
+
+/* film çizikleri */
+
+#countdown::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:
+linear-gradient(transparent 96%, rgba(255,255,255,0.2) 100%),
+linear-gradient(90deg, transparent 98%, rgba(255,255,255,0.15) 100%);
+opacity:0.25;
+}
+
+/* sinema dairesi */
 
 .circle{
 position:relative;
@@ -64,7 +103,7 @@ font-size:80px;
 font-weight:bold;
 }
 
-/* dönen çizgi */
+/* dönen sinema çizgisi */
 
 .circle::after{
 content:"";
@@ -83,11 +122,11 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* ana sayfa */
+/* ana içerik */
 
 .container{
 position:relative;
-top:30vh;
+top:32vh;
 z-index:3;
 opacity:0;
 animation:showPage 1.5s ease forwards;
@@ -107,6 +146,8 @@ text-shadow:
 0 0 45px #ff2e63;
 }
 
+/* buton */
+
 button{
 padding:16px 45px;
 font-size:22px;
@@ -122,7 +163,7 @@ button:hover{
 transform:scale(1.08);
 }
 
-/* telefon */
+/* telefon uyumu */
 
 @media(max-width:600px){
 
@@ -142,57 +183,15 @@ font-size:30px;
 
 }
 
-</style>
-</head>
-
-<body>
-
-<div id="countdown">
+</style></head><body><div id="countdown">
 <div class="circle" id="num">3</div>
-</div>
+</div><div class="container"><h1>Bizim Şarkımız ❤️</h1><button onclick="cal()">Şarkıyı Çal</button>
 
-<div class="container">
-
-<h1>Bizim Şarkımız ❤️</h1>
-
-<button onclick="cal()">Şarkıyı Çal</button>
-
-</div>
-
-<audio id="muzik">
+</div><audio id="muzik">
 <source src="sarki.mp3" type="audio/mpeg">
-</audio>
+</audio><script>
 
-<script>
-
-/* PROJEKTÖR SESİ (kod içinde) */
-
-let ctx=new (window.AudioContext||window.webkitAudioContext)();
-
-function projectorSound(){
-
-let osc=ctx.createOscillator();
-let gain=ctx.createGain();
-
-osc.type="square";
-osc.frequency.value=18;
-
-gain.gain.value=0.05;
-
-osc.connect(gain);
-gain.connect(ctx.destination);
-
-osc.start();
-
-setTimeout(()=>{
-osc.stop();
-},3000);
-
-}
-
-projectorSound();
-
-/* GERİ SAYIM */
+/* geri sayım */
 
 let sayi=3;
 
@@ -210,6 +209,7 @@ clearInterval(interval);
 
 let c=document.getElementById("countdown");
 
+c.style.transition="opacity 1s";
 c.style.opacity="0";
 
 setTimeout(()=>{
@@ -220,7 +220,6 @@ c.style.display="none";
 
 },1000);
 
-
 /* şarkı */
 
 function cal(){
@@ -230,7 +229,5 @@ muzik.play();
 
 }
 
-</script>
-
-</body>
+</script></body>
 </html>
