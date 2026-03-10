@@ -136,7 +136,10 @@ justify-content:center;
 font-size:140px;
 font-weight:bold;
 color:black;
+overflow:hidden;
 }
+
+/* ikinci halka */
 
 .circle::before{
 content:"";
@@ -147,24 +150,21 @@ border:5px solid #f5f5f5;
 border-radius:50%;
 }
 
-/* dönen çubuk */
+/* dönen üçgen film dilimi */
 
-.circle::after{
-content:"";
+.slice{
 position:absolute;
-width:3px;
-height:130px;
-background:black;
-top:50%;
-left:50%;
-transform-origin:bottom center;
-transform:translate(-50%,-100%);
+width:100%;
+height:100%;
+clip-path:polygon(50% 50%, 100% 0, 100% 100%);
+background:rgba(0,0,0,0.15);
 animation:spin 1s linear infinite;
+transform-origin:center;
 }
 
 @keyframes spin{
-0%{transform:translate(-50%,-100%) rotate(0deg);}
-100%{transform:translate(-50%,-100%) rotate(360deg);}
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
 }
 
 /* ana ekran */
@@ -203,7 +203,13 @@ cursor:pointer;
 
 <div class="crosshair"></div>
 
-<div class="circle" id="num">3</div>
+<div class="circle">
+
+<div class="slice"></div>
+
+<div id="num">3</div>
+
+</div>
 
 </div>
 
@@ -243,6 +249,7 @@ document.getElementById("num").innerHTML=n;
 }else{
 
 clearInterval(interval);
+
 document.getElementById("countdown").style.display="none";
 
 }
