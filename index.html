@@ -136,45 +136,45 @@ cursor:pointer;
 
 <script>
 
-window.addEventListener("load",function(){
+document.addEventListener("DOMContentLoaded", function(){
 
-let number=3;
+let number = 3;
 
-const playBtn=document.getElementById("playBtn");
-const musicBtn=document.getElementById("musicBtn");
-const sound=document.getElementById("countSound");
-const music=document.getElementById("music");
+const playBtn = document.getElementById("playBtn");
+const musicBtn = document.getElementById("musicBtn");
+const sound = document.getElementById("countSound");
+const music = document.getElementById("music");
 
-playBtn.addEventListener("click",function(){
+playBtn.addEventListener("click", function(){
 
-sound.currentTime=0;
+sound.currentTime = 0;
 sound.play().catch(()=>{});
 
-playBtn.style.display="none";
+playBtn.style.display = "none";
 
-document.getElementById("countdownNumber").innerText=number;
+document.getElementById("countdownNumber").innerText = number;
 
-let interval=setInterval(function(){
+let interval = setInterval(function(){
 
 number--;
 
-if(number>0){
+if(number > 0){
 
-document.getElementById("countdownNumber").innerText=number;
+document.getElementById("countdownNumber").innerText = number;
 
 }else{
 
 clearInterval(interval);
 
 sound.pause();
-sound.currentTime=0;
+sound.currentTime = 0;
 
-document.getElementById("countdownScreen").style.opacity="0";
+document.getElementById("countdownScreen").style.opacity = "0";
 
 setTimeout(function(){
 
-document.getElementById("countdownScreen").style.display="none";
-document.getElementById("wedding").style.opacity="1";
+document.getElementById("countdownScreen").style.display = "none";
+document.getElementById("wedding").style.opacity = "1";
 
 },800);
 
@@ -184,9 +184,9 @@ document.getElementById("wedding").style.opacity="1";
 
 });
 
-musicBtn.addEventListener("click",function(){
+musicBtn.addEventListener("click", function(){
 
-music.currentTime=0;
+music.currentTime = 0;
 music.play().catch(()=>{});
 
 });
