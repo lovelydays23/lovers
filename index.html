@@ -127,7 +127,9 @@ cursor:pointer;
 <script>
 
 function startCountdown(){
-
+  
+document.querySelector(".playBtn").style.display="none";
+  
 var number = 3;
 var sound = document.getElementById("countSound");
 var display = document.getElementById("countdownNumber");
