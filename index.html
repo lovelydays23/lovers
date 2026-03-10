@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bizim Şarkımız ❤️</title>
+<title>Bizim Şarkımız</title>
 
 <style>
 
@@ -13,7 +13,6 @@ font-family:Arial;
 text-align:center;
 overflow:hidden;
 color:white;
-
 background-image:url("foto.jpg");
 background-size:cover;
 background-position:center;
@@ -21,7 +20,7 @@ background-repeat:no-repeat;
 height:100vh;
 }
 
-/* KARARTMA */
+/* karartma */
 
 body::before{
 content:"";
@@ -34,7 +33,7 @@ background:rgba(0,0,0,0.35);
 z-index:1;
 }
 
-/* SİNEMATİK SAYIM */
+/* geri sayım ekranı */
 
 #countdown{
 position:fixed;
@@ -46,21 +45,45 @@ background:black;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:120px;
-font-weight:bold;
 z-index:10;
-animation:fadeOut 1s ease forwards;
-animation-delay:4s;
+transition:opacity 1s;
 }
 
-@keyframes fadeOut{
-to{
-opacity:0;
-visibility:hidden;
-}
+/* daire */
+
+.circle{
+position:relative;
+width:220px;
+height:220px;
+border:6px solid white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:80px;
+font-weight:bold;
 }
 
-/* ANA İÇERİK */
+/* dönen çizgi */
+
+.circle::after{
+content:"";
+position:absolute;
+width:4px;
+height:110px;
+background:white;
+top:0;
+left:50%;
+transform-origin:bottom;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+}
+
+/* ana sayfa */
 
 .container{
 position:relative;
@@ -68,13 +91,11 @@ top:30vh;
 z-index:3;
 opacity:0;
 animation:showPage 1.5s ease forwards;
-animation-delay:4s;
+animation-delay:3.5s;
 }
 
 @keyframes showPage{
-to{
-opacity:1;
-}
+to{opacity:1;}
 }
 
 h1{
@@ -85,8 +106,6 @@ text-shadow:
 0 0 25px #ff2e63,
 0 0 45px #ff2e63;
 }
-
-/* BUTON */
 
 button{
 padding:16px 45px;
@@ -103,61 +122,22 @@ button:hover{
 transform:scale(1.08);
 }
 
-/* TELEFON */
+/* telefon */
 
 @media(max-width:600px){
+
+.circle{
+width:160px;
+height:160px;
+font-size:60px;
+}
 
 .container{
 top:36vh;
 }
 
 h1{
-font-size:32px;
-}
-
-#countdown{
-font-size:80px;
-}
-
-}
-
-/* GÜL YAPRAĞI */
-
-#petal-layer{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:2;
-}
-
-.petal{
-position:absolute;
-top:-80px;
-width:28px;
-height:28px;
-background-image:url("petal.png");
-background-size:contain;
-background-repeat:no-repeat;
-animation:fall linear forwards;
-}
-
-@keyframes fall{
-
-0%{
-transform:translateY(-100px) translateX(0) rotate(0deg);
-opacity:1;
-}
-
-50%{
-transform:translateY(60vh) translateX(40px) rotate(180deg);
-}
-
-100%{
-transform:translateY(110vh) translateX(-40px) rotate(360deg);
-opacity:0;
+font-size:30px;
 }
 
 }
@@ -167,9 +147,9 @@ opacity:0;
 
 <body>
 
-<div id="countdown">3</div>
-
-<div id="petal-layer"></div>
+<div id="countdown">
+<div class="circle" id="num">3</div>
+</div>
 
 <div class="container">
 
@@ -185,58 +165,68 @@ opacity:0;
 
 <script>
 
+/* PROJEKTÖR SESİ (kod içinde) */
+
+let ctx=new (window.AudioContext||window.webkitAudioContext)();
+
+function projectorSound(){
+
+let osc=ctx.createOscillator();
+let gain=ctx.createGain();
+
+osc.type="square";
+osc.frequency.value=18;
+
+gain.gain.value=0.05;
+
+osc.connect(gain);
+gain.connect(ctx.destination);
+
+osc.start();
+
+setTimeout(()=>{
+osc.stop();
+},3000);
+
+}
+
+projectorSound();
+
 /* GERİ SAYIM */
 
-let sayilar=["3","2","1","❤️"];
-let index=0;
+let sayi=3;
 
-let sayim=setInterval(()=>{
+let interval=setInterval(()=>{
 
-index++;
+sayi--;
 
-if(index<sayilar.length){
+if(sayi>0){
 
-document.getElementById("countdown").innerHTML=sayilar[index];
+document.getElementById("num").innerHTML=sayi;
 
 }else{
 
-clearInterval(sayim);
+clearInterval(interval);
+
+let c=document.getElementById("countdown");
+
+c.style.opacity="0";
+
+setTimeout(()=>{
+c.style.display="none";
+},1000);
 
 }
 
 },1000);
 
 
-/* ŞARKI VE GÜLLER */
+/* şarkı */
 
 function cal(){
 
 let muzik=document.getElementById("muzik");
 muzik.play();
-
-let layer=document.getElementById("petal-layer");
-
-for(let i=0;i<70;i++){
-
-let petal=document.createElement("div");
-
-petal.className="petal";
-
-petal.style.left=Math.random()*100+"vw";
-
-let size=Math.random()*20+20;
-petal.style.width=size+"px";
-petal.style.height=size+"px";
-
-petal.style.animationDuration=(Math.random()*4+5)+"s";
-
-layer.appendChild(petal);
-
-setTimeout(()=>{
-petal.remove();
-},9000);
-
-}
 
 }
 
