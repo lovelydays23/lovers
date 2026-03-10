@@ -31,8 +31,7 @@ transition:opacity 0.8s ease;
 
 /* film şeridi */
 
-.filmTop,
-.filmBottom{
+.filmTop,.filmBottom{
 position:absolute;
 width:100%;
 height:40px;
@@ -113,26 +112,22 @@ cursor:pointer;
 
 <body>
 
-<!-- geri sayım ekranı -->
-
 <div id="countdownScreen">
 
 <div class="filmTop"></div>
 <div class="filmBottom"></div>
 
-<div class="playBtn" onclick="startCountdown()"></div>
+<div class="playBtn" id="playBtn"></div>
 
 <div id="countdownNumber"></div>
 
 </div>
 
-<!-- düğün ekranı -->
-
 <div id="wedding">
 
 <h1>Bizim Şarkımız ❤️</h1>
 
-<button class="musicBtn" onclick="document.getElementById('music').play()">Şarkıyı Çal</button>
+<button class="musicBtn" id="musicBtn">Şarkıyı Çal</button>
 
 </div>
 
@@ -141,21 +136,25 @@ cursor:pointer;
 
 <script>
 
-let number = 3;
-const music = document.getElementById("music");
+window.addEventListener("load",function(){
 
-function startCountdown(){
+let number=3;
 
+const playBtn=document.getElementById("playBtn");
+const musicBtn=document.getElementById("musicBtn");
 const sound=document.getElementById("countSound");
+const music=document.getElementById("music");
+
+playBtn.addEventListener("click",function(){
 
 sound.currentTime=0;
 sound.play().catch(()=>{});
 
-document.querySelector(".playBtn").style.display="none";
+playBtn.style.display="none";
 
 document.getElementById("countdownNumber").innerText=number;
 
-let interval=setInterval(()=>{
+let interval=setInterval(function(){
 
 number--;
 
@@ -172,12 +171,10 @@ sound.currentTime=0;
 
 document.getElementById("countdownScreen").style.opacity="0";
 
-setTimeout(()=>{
+setTimeout(function(){
 
 document.getElementById("countdownScreen").style.display="none";
-
-let wedding=document.getElementById("wedding");
-wedding.style.opacity="1";
+document.getElementById("wedding").style.opacity="1";
 
 },800);
 
@@ -185,7 +182,16 @@ wedding.style.opacity="1";
 
 },1000);
 
-}
+});
+
+musicBtn.addEventListener("click",function(){
+
+music.currentTime=0;
+music.play().catch(()=>{});
+
+});
+
+});
 
 </script>
 
