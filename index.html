@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Bizim Şarkımız ❤️</title>
 
 <style>
@@ -24,6 +25,7 @@ background:#c5a06a;
 display:flex;
 align-items:center;
 justify-content:center;
+animation:flicker 0.15s infinite;
 }
 
 /* film şeritleri */
@@ -78,7 +80,7 @@ border:8px solid rgba(255,255,255,0.9);
 border-radius:50%;
 }
 
-/* dönen dilim */
+/* dönen film dilimi */
 
 .wedge{
 position:absolute;
@@ -154,14 +156,25 @@ animation:grainMove 0.3s infinite;
 
 /* projektör titreme */
 
-#countdownScreen{
-animation:flicker 0.15s infinite;
-}
-
 @keyframes flicker{
 0%{opacity:1}
 50%{opacity:0.97}
 100%{opacity:1}
+}
+
+/* siyah geçiş ekranı */
+
+#blackFade{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+opacity:0;
+pointer-events:none;
+transition:opacity 1s;
+z-index:999;
 }
 
 /* düğün ekranı */
@@ -220,6 +233,8 @@ cursor:pointer;
 
 <div class="grain"></div>
 
+<div id="blackFade"></div>
+
 <div id="wedding">
 
 <h1>Bizim Şarkımız ❤️</h1>
@@ -264,8 +279,22 @@ clearInterval(interval);
 
 sound.pause();
 
+let fade=document.getElementById("blackFade");
+
+fade.style.opacity="1";
+
+setTimeout(function(){
+
 document.getElementById("countdownScreen").style.display="none";
+
+setTimeout(function(){
+
+fade.style.opacity="0";
 document.getElementById("wedding").style.display="flex";
+
+},1000);
+
+},3000);
 
 }
 
