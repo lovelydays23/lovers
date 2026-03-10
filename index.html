@@ -233,14 +233,12 @@ cursor:pointer;
 let n=3;
 let sound=document.getElementById("countSound");
 
-sound.play();
-
 let interval=setInterval(()=>{
 
-n--;
-
 sound.currentTime=0;
-sound.play();
+sound.play().catch(()=>{});
+
+n--;
 
 if(n>0){
 
@@ -249,7 +247,6 @@ document.getElementById("num").innerHTML=n;
 }else{
 
 clearInterval(interval);
-
 document.getElementById("countdown").style.display="none";
 
 }
