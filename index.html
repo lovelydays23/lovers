@@ -83,7 +83,7 @@ height:420px;
 left:50%;
 top:50%;
 transform:translate(-50%,-50%);
-pointer-events:none; /* BUTONU ENGELLEMESİN */
+pointer-events:none;
 }
 
 .crosshair::before{
@@ -159,7 +159,7 @@ background:rgba(0,0,0,0.15);
 animation:spin 1s linear infinite;
 transform-origin:center;
 display:none;
-pointer-events:none; /* BUTONU ENGELLEMESİN */
+pointer-events:none;
 }
 
 @keyframes spin{
@@ -188,7 +188,7 @@ margin-left:6px;
 
 #num{
 position:relative;
-z-index:10; /* BUTON EN ÜSTTE */
+z-index:10;
 }
 
 /* ana ekran */
@@ -235,6 +235,8 @@ function startCountdown(){
 
 slice.style.display="block";
 
+/* SES SADECE 1 KEZ ÇALAR */
+
 sound.currentTime=0;
 sound.play().catch(()=>{});
 
@@ -243,9 +245,6 @@ document.getElementById("num").innerHTML=n;
 let interval=setInterval(()=>{
 
 n--;
-
-sound.currentTime=0;
-sound.play().catch(()=>{});
 
 if(n>0){
 
