@@ -32,32 +32,23 @@ display:flex;
 align-items:center;
 justify-content:center;
 z-index:9999;
-animation:filmJitter 0.15s infinite;
 }
 
-/* film titreşimi */
+/* vignette zoom efekti */
 
-@keyframes filmJitter{
-0%{transform:translate(0,0)}
-25%{transform:translate(1px,-1px)}
-50%{transform:translate(-1px,1px)}
-75%{transform:translate(1px,1px)}
-100%{transform:translate(0,0)}
-}
-
-/* film grain */
-
-#countdown::after{
+#countdown::before{
 content:"";
 position:absolute;
 width:100%;
 height:100%;
-background-image:url("https://grainy-gradients.vercel.app/noise.svg");
-opacity:0.25;
+background:radial-gradient(circle,
+rgba(255,255,255,0.1) 0%,
+rgba(0,0,0,0.3) 60%,
+rgba(0,0,0,0.65) 100%);
 pointer-events:none;
 }
 
-/* film şeridi */
+/* film frame */
 
 .film-frame{
 position:relative;
@@ -74,8 +65,7 @@ position:absolute;
 left:0;
 width:100%;
 height:28px;
-background:
-repeating-linear-gradient(
+background:repeating-linear-gradient(
 90deg,
 black 0px,
 black 22px,
@@ -146,7 +136,6 @@ justify-content:center;
 font-size:140px;
 font-weight:bold;
 color:black;
-z-index:2;
 }
 
 /* ikinci halka */
@@ -195,14 +184,6 @@ animation-delay:3.5s;
 to{opacity:1;}
 }
 
-h1{
-font-size:42px;
-margin-bottom:20px;
-text-shadow:0 0 15px rgba(255,255,255,0.7);
-}
-
-/* buton */
-
 button{
 padding:15px 40px;
 font-size:22px;
@@ -211,29 +192,6 @@ border-radius:40px;
 background:#b3002d;
 color:white;
 cursor:pointer;
-}
-
-button:hover{
-transform:scale(1.05);
-}
-
-/* telefon uyumu */
-
-@media (max-width:600px){
-
-h1{font-size:32px}
-
-button{
-font-size:18px;
-padding:14px 30px;
-}
-
-.circle{
-width:220px;
-height:220px;
-font-size:100px;
-}
-
 }
 
 </style>
@@ -262,11 +220,18 @@ font-size:100px;
 <source src="sarki.mp3" type="audio/mpeg">
 </audio>
 
+<!-- geri sayım sesi -->
+<audio id="countSound">
+<source src="count.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 
 let n=3;
 
 let interval=setInterval(()=>{
+
+document.getElementById("countSound").play();
 
 n--;
 
@@ -285,9 +250,7 @@ document.getElementById("countdown").style.display="none";
 },1000);
 
 function cal(){
-
 document.getElementById("muzik").play();
-
 }
 
 </script>
