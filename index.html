@@ -143,16 +143,16 @@ cursor:pointer;
 
 let number=3;
 
-const playBtn=document.getElementById("playBtn");
-const musicBtn=document.getElementById("musicBtn");
-const music=document.getElementById("music");
-const sound=document.getElementById("countSound");
+const playBtn = document.getElementById("playBtn");
+const musicBtn = document.getElementById("musicBtn");
+const music = document.getElementById("music");
+const sound = document.getElementById("countSound");
 
-playBtn.addEventListener("click",startCountdown);
+playBtn.addEventListener("click", startCountdown);
 
-musicBtn.addEventListener("click",function(){
-music.currentTime=0;
-music.play();
+musicBtn.addEventListener("click", function(){
+music.currentTime = 0;
+music.play().catch(()=>{});
 });
 
 function startCountdown(){
