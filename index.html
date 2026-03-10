@@ -13,147 +13,114 @@ color:white;
 background-image:url("foto.jpg");
 background-size:cover;
 background-position:center;
-background-repeat:no-repeat;
 height:100vh;
 }
 
-/* arka plan karartma */
-
-body::before{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.35);
-z-index:1;
-}
-
-/* geri sayım ekranı */
+/* countdown ekranı */
 
 #countdown{
 position:fixed;
-top:0;
-left:0;
 width:100%;
 height:100%;
-background:#222;
+background:#c6a97a;
 display:flex;
 align-items:center;
 justify-content:center;
 z-index:10;
-animation:flicker 0.1s infinite;
-}
-
-/* film titremesi */
-
-@keyframes flicker{
-0%{opacity:1}
-50%{opacity:0.97}
-100%{opacity:1}
-}
-
-/* film grain */
-
-#countdown::after{
-content:"";
-position:absolute;
-width:100%;
-height:100%;
-background-image:url("https://upload.wikimedia.org/wikipedia/commons/7/76/Film_grain.png");
-opacity:0.18;
-mix-blend-mode:overlay;
 }
 
 /* film şeridi */
 
-.film{
+.film-frame{
 position:relative;
-background:#444;
 padding:60px 40px;
-border-radius:6px;
+background:#c6a97a;
 }
 
-/* film delikleri */
-
-.film::before,
-.film::after{
+.film-frame::before,
+.film-frame::after{
 content:"";
 position:absolute;
 left:0;
 width:100%;
-height:20px;
+height:25px;
 background:
 repeating-linear-gradient(
 90deg,
 black 0px,
 black 20px,
 white 20px,
-white 30px
+white 35px
 );
 }
 
-.film::before{top:-20px;}
-.film::after{bottom:-20px;}
+.film-frame::before{top:-25px;}
+.film-frame::after{bottom:-25px;}
 
 /* hedef çizgileri */
 
 .crosshair{
 position:absolute;
-width:220px;
-height:220px;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+width:300px;
+height:300px;
 }
 
 .crosshair::before{
 content:"";
 position:absolute;
-width:2px;
+width:3px;
 height:100%;
-background:white;
+background:black;
 left:50%;
 }
 
 .crosshair::after{
 content:"";
 position:absolute;
-height:2px;
+height:3px;
 width:100%;
-background:white;
+background:black;
 top:50%;
 }
 
-/* büyük sinema diski */
+/* daire */
 
 .circle{
 position:relative;
-width:220px;
-height:220px;
-background:#666;
-border:6px solid white;
+width:280px;
+height:280px;
+border:8px solid #f5f5f5;
 border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:90px;
+font-size:140px;
 font-weight:bold;
-color:white;
+color:black;
 }
 
-/* dönen sayaç */
+/* ikinci halka */
+
+.circle::before{
+content:"";
+position:absolute;
+width:240px;
+height:240px;
+border:5px solid #f5f5f5;
+border-radius:50%;
+}
+
+/* dönen sinema dilimi */
 
 .circle::after{
 content:"";
 position:absolute;
-width:4px;
-height:110px;
-background:white;
+width:50%;
+height:50%;
+background:rgba(0,0,0,0.15);
 top:0;
-left:50%;
-transform-origin:bottom;
+right:0;
+transform-origin:bottom left;
 animation:spin 1s linear infinite;
 }
 
@@ -162,74 +129,50 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* ana içerik */
+/* ana sayfa */
 
 .container{
 position:relative;
 top:34vh;
-z-index:3;
+z-index:2;
 opacity:0;
-animation:showPage 1.5s ease forwards;
+animation:show 1.5s forwards;
 animation-delay:3.5s;
 }
 
-@keyframes showPage{
+@keyframes show{
 to{opacity:1;}
 }
 
 h1{
-font-size:48px;
-margin-bottom:25px;
-text-shadow:
-0 0 10px white,
-0 0 25px #ff2e63,
-0 0 45px #ff2e63;
+font-size:42px;
+margin-bottom:20px;
 }
 
 button{
-padding:16px 45px;
+padding:15px 40px;
 font-size:22px;
 border:none;
-border-radius:50px;
+border-radius:40px;
 background:#b3002d;
 color:white;
 cursor:pointer;
 }
 
-@media(max-width:600px){
-
-.circle{
-width:160px;
-height:160px;
-font-size:60px;
-}
-
-.crosshair{
-width:160px;
-height:160px;
-}
-
-h1{
-font-size:30px;
-}
-
-}
-
-</style></head><body><div id="countdown"><div class="film"><div class="crosshair"></div><div class="circle" id="num">3</div></div></div><div class="container"><h1>Bizim Şarkımız ❤️</h1><button onclick="cal()">Şarkıyı Çal</button>
-
-</div><audio id="muzik">
+</style></head><body><div id="countdown"><div class="film-frame"><div class="crosshair"></div><div class="circle" id="num">3</div></div></div><div class="container"><h1>Bizim Şarkımız ❤️</h1>
+<button onclick="cal()">Şarkıyı Çal</button></div><audio id="muzik">
 <source src="sarki.mp3" type="audio/mpeg">
 </audio><script>
 
-let sayi=3;
+let n=3;
 
 let interval=setInterval(()=>{
 
-sayi--;
+n--;
 
-if(sayi>0){
+if(n>0){
 
-document.getElementById("num").innerHTML=sayi;
+document.getElementById("num").innerHTML=n;
 
 }else{
 
