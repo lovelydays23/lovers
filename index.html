@@ -83,6 +83,7 @@ height:420px;
 left:50%;
 top:50%;
 transform:translate(-50%,-50%);
+pointer-events:none; /* BUTONU ENGELLEMESİN */
 }
 
 .crosshair::before{
@@ -158,6 +159,7 @@ background:rgba(0,0,0,0.15);
 animation:spin 1s linear infinite;
 transform-origin:center;
 display:none;
+pointer-events:none; /* BUTONU ENGELLEMESİN */
 }
 
 @keyframes spin{
@@ -182,6 +184,11 @@ cursor:pointer;
 color:white;
 font-size:60px;
 margin-left:6px;
+}
+
+#num{
+position:relative;
+z-index:10; /* BUTON EN ÜSTTE */
 }
 
 /* ana ekran */
