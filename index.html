@@ -220,7 +220,6 @@ cursor:pointer;
 <source src="sarki.mp3" type="audio/mpeg">
 </audio>
 
-<!-- geri sayım sesi -->
 <audio id="countSound">
 <source src="count.mp3" type="audio/mpeg">
 </audio>
@@ -228,10 +227,12 @@ cursor:pointer;
 <script>
 
 let n=3;
+let sound=document.getElementById("countSound");
 
 let interval=setInterval(()=>{
 
-document.getElementById("countSound").play();
+sound.currentTime=0;
+sound.play();
 
 n--;
 
