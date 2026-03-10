@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Bizim Şarkımız ❤️</title>
 
 <style>
@@ -24,7 +23,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 flex-direction:column;
-transition:opacity 0.8s ease;
 }
 
 .filmTop,.filmBottom{
@@ -81,8 +79,7 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 color:white;
-opacity:0;
-transition:opacity 0.8s ease;
+display:none;
 }
 
 #wedding h1{
@@ -110,7 +107,7 @@ cursor:pointer;
 <div class="filmTop"></div>
 <div class="filmBottom"></div>
 
-<div class="playBtn" id="playButton"></div>
+<div class="playBtn" onclick="startCountdown()"></div>
 
 <div id="countdownNumber"></div>
 
@@ -120,69 +117,52 @@ cursor:pointer;
 
 <h1>Bizim Şarkımız ❤️</h1>
 
-<button class="musicBtn" id="musicButton">Şarkıyı Çal</button>
+<button class="musicBtn" onclick="playMusic()">Şarkıyı Çal</button>
 
 </div>
 
-<audio id="countSound" preload="auto">
-<source src="countdown321.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="music" preload="auto">
-<source src="music.mp3" type="audio/mpeg">
-</audio>
+<audio id="countSound" src="countdown321.mp3"></audio>
+<audio id="music" src="music.mp3"></audio>
 
 <script>
 
-let number=3;
-
-const playBtn=document.getElementById("playButton");
-const musicBtn=document.getElementById("musicButton");
-const countSound=document.getElementById("countSound");
-const music=document.getElementById("music");
-
-playBtn.addEventListener("click", startCountdown);
-
-musicBtn.addEventListener("click", function(){
-music.play();
-});
-
 function startCountdown(){
 
-playBtn.style.display="none";
+var number = 3;
+var sound = document.getElementById("countSound");
+var display = document.getElementById("countdownNumber");
 
-countSound.currentTime=0;
-countSound.play().catch(()=>{});
+sound.currentTime = 0;
+sound.play();
 
-document.getElementById("countdownNumber").innerText=number;
+display.innerText = number;
 
-let interval=setInterval(function(){
+var interval = setInterval(function(){
 
 number--;
 
 if(number>0){
 
-document.getElementById("countdownNumber").innerText=number;
+display.innerText = number;
 
 }else{
 
 clearInterval(interval);
 
-countSound.pause();
-countSound.currentTime=0;
-
-document.getElementById("countdownScreen").style.opacity="0";
-
-setTimeout(function(){
+sound.pause();
 
 document.getElementById("countdownScreen").style.display="none";
-document.getElementById("wedding").style.opacity="1";
-
-},800);
+document.getElementById("wedding").style.display="flex";
 
 }
 
 },1000);
+
+}
+
+function playMusic(){
+
+document.getElementById("music").play();
 
 }
 
