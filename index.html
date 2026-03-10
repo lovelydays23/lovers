@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="tr">
+<!DOCTYPE html><html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bizim Şarkımız</title>
-
-<style>
+<title>Bizim Şarkımız</title><style>
 
 body{
 margin:0;
@@ -18,6 +15,8 @@ background-size:cover;
 background-position:center;
 height:100vh;
 }
+
+/* geri sayım ekranı */
 
 #countdown{
 position:fixed;
@@ -32,6 +31,8 @@ justify-content:center;
 z-index:9999;
 }
 
+/* vignette */
+
 #countdown::before{
 content:"";
 position:absolute;
@@ -41,13 +42,39 @@ background:radial-gradient(circle,
 rgba(255,255,255,0.1) 0%,
 rgba(0,0,0,0.3) 60%,
 rgba(0,0,0,0.65) 100%);
+pointer-events:none;
 }
+
+/* film frame */
 
 .film-frame{
 position:relative;
 padding:70px 60px;
 background:#c6a97a;
 }
+
+/* film delikleri */
+
+.film-frame::before,
+.film-frame::after{
+content:"";
+position:absolute;
+left:0;
+width:100%;
+height:28px;
+background:repeating-linear-gradient(
+90deg,
+black 0px,
+black 22px,
+white 22px,
+white 38px
+);
+}
+
+.film-frame::before{top:-28px;}
+.film-frame::after{bottom:-28px;}
+
+/* crosshair */
 
 .crosshair{
 position:absolute;
@@ -92,6 +119,8 @@ transparent 26px
 transform:translateY(-50%);
 }
 
+/* çember */
+
 .circle{
 position:relative;
 width:280px;
@@ -104,7 +133,10 @@ justify-content:center;
 font-size:140px;
 font-weight:bold;
 color:black;
+overflow:hidden;
 }
+
+/* ikinci halka */
 
 .circle::before{
 content:"";
@@ -115,10 +147,7 @@ border:5px solid #f5f5f5;
 border-radius:50%;
 }
 
-.play{
-font-size:90px;
-cursor:pointer;
-}
+/* dönen film dilimi */
 
 .slice{
 position:absolute;
@@ -135,6 +164,27 @@ display:none;
 0%{transform:rotate(0deg);}
 100%{transform:rotate(360deg);}
 }
+
+/* play butonu */
+
+.play{
+width:110px;
+height:110px;
+background:black;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+.play span{
+color:white;
+font-size:60px;
+margin-left:6px;
+}
+
+/* ana ekran */
 
 .container{
 position:relative;
@@ -159,49 +209,20 @@ color:white;
 cursor:pointer;
 }
 
-</style>
-</head>
-
-<body>
-
-<div id="countdown">
-
-<div class="film-frame">
-
-<div class="crosshair"></div>
-
-<div class="circle">
-
-<div class="slice" id="slice"></div>
-
-<div id="num">
-<span class="play" onclick="startCountdown()">▶️</span>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="container">
+</style></head><body><div id="countdown"><div class="film-frame"><div class="crosshair"></div><div class="circle"><div class="slice" id="slice"></div><div id="num"><div class="play" onclick="startCountdown()">
+<span>▶</span>
+</div></div></div></div></div><div class="container">
 <h1>Bizim Şarkımız ❤️</h1>
 <button onclick="cal()">Şarkıyı Çal</button>
-</div>
-
-<audio id="muzik">
+</div><audio id="muzik">
 <source src="sarki.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="countSound">
+</audio><audio id="countSound">
 <source src="countdown321.mp3" type="audio/mpeg">
-</audio>
+</audio><script>
 
-<script>
-
+let n=3;
 let sound=document.getElementById("countSound");
 let slice=document.getElementById("slice");
-let n=3;
 
 function startCountdown(){
 
@@ -226,7 +247,6 @@ document.getElementById("num").innerHTML=n;
 }else{
 
 clearInterval(interval);
-
 document.getElementById("countdown").style.display="none";
 
 }
@@ -239,7 +259,5 @@ function cal(){
 document.getElementById("muzik").play();
 }
 
-</script>
-
-</body>
+</script></body>
 </html>
