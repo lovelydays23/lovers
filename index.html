@@ -16,8 +16,6 @@ background-position:center;
 height:100vh;
 }
 
-/* geri sayım ekranı */
-
 #countdown{
 position:fixed;
 top:0;
@@ -31,8 +29,6 @@ justify-content:center;
 z-index:9999;
 }
 
-/* vignette */
-
 #countdown::before{
 content:"";
 position:absolute;
@@ -45,15 +41,11 @@ rgba(0,0,0,0.65) 100%);
 pointer-events:none;
 }
 
-/* film frame */
-
 .film-frame{
 position:relative;
 padding:70px 60px;
 background:#c6a97a;
 }
-
-/* film delikleri */
 
 .film-frame::before,
 .film-frame::after{
@@ -73,8 +65,6 @@ white 38px
 
 .film-frame::before{top:-28px;}
 .film-frame::after{bottom:-28px;}
-
-/* crosshair */
 
 .crosshair{
 position:absolute;
@@ -120,8 +110,6 @@ transparent 26px
 transform:translateY(-50%);
 }
 
-/* çember */
-
 .circle{
 position:relative;
 width:280px;
@@ -137,8 +125,6 @@ color:black;
 overflow:hidden;
 }
 
-/* ikinci halka */
-
 .circle::before{
 content:"";
 position:absolute;
@@ -147,8 +133,6 @@ height:240px;
 border:5px solid #f5f5f5;
 border-radius:50%;
 }
-
-/* dönen film dilimi */
 
 .slice{
 position:absolute;
@@ -166,8 +150,6 @@ pointer-events:none;
 0%{transform:rotate(0deg);}
 100%{transform:rotate(360deg);}
 }
-
-/* play butonu */
 
 .play{
 width:110px;
@@ -190,8 +172,6 @@ margin-left:6px;
 position:relative;
 z-index:10;
 }
-
-/* ana ekran */
 
 .container{
 position:relative;
@@ -235,8 +215,6 @@ function startCountdown(){
 
 slice.style.display="block";
 
-/* SES SADECE 1 KEZ ÇALAR */
-
 sound.currentTime=0;
 sound.play().catch(()=>{});
 
@@ -253,6 +231,12 @@ document.getElementById("num").innerHTML=n;
 }else{
 
 clearInterval(interval);
+
+/* SESİ DURDUR */
+
+sound.pause();
+sound.currentTime=0;
+
 document.getElementById("countdown").style.display="none";
 
 }
